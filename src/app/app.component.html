@@ -1,4 +1,4 @@
-<main class="main">
+<!-- <main class="main">
   <div class="container">
     <h1>{{ title }}</h1>
     <div>
@@ -33,7 +33,14 @@
       </p>
     </div>
   </div>
-</main>
+</main> -->
+
+<div class="form-group">
+  <label for="power">Hero Power</label>
+  <select class="form-control" id="power" required>
+    <option *ngFor="let pow of powers" [value]="pow">{{ pow }}</option>
+  </select>
+</div>
 
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * The content above * * * * * * * * * * * * -->
