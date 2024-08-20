@@ -40,6 +40,8 @@
   <select class="form-control" id="power" required>
     <option *ngFor="let pow of powers" [value]="pow">{{ pow }}</option>
   </select>
+  <p>{{ toCurrency | uppercase }}</p>
+  <p>{{ convertedAmount | number : "1.2-2" }} {{ toCurrency }}</p>
 </div>
 
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->

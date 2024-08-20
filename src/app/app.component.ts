@@ -14,6 +14,7 @@ export class AppComponent implements OnInit {
   fromCurrency = 'USD';
   toCurrency = 'EUR';
   convertedAmount = 0;
+  powers: string[] = ['Super Strength', 'Flight', 'Invisibility', 'Telepathy'];
 
   constructor(private currencyService: CurrencyService) {}
 
