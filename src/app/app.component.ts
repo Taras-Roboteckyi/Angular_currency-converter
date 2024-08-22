@@ -10,11 +10,10 @@ export class AppComponent implements OnInit {
   title = 'Currency Converter';
   rates: { [key: string]: number } = {};
   currencies: string[] = [];
-  amount = 1;
+  amount1 = 1;
+  amount2 = 0;
   fromCurrency = 'USD';
   toCurrency = 'EUR';
-  convertedAmount = 0;
-  powers: string[] = ['Super Strength', 'Flight', 'Invisibility', 'Telepathy'];
 
   constructor(private currencyService: CurrencyService) {}
 
@@ -22,14 +21,21 @@ export class AppComponent implements OnInit {
     this.currencyService.getExchangeRates().subscribe((data) => {
       this.rates = data.rates;
       this.currencies = Object.keys(this.rates);
-      this.convert();
+      this.convert('from');
     });
   }
 
-  convert(): void {
+  convert(direction: 'from' | 'to'): void {
     if (this.fromCurrency && this.toCurrency) {
-      const rate = this.rates[this.toCurrency] / this.rates[this.fromCurrency];
-      this.convertedAmount = this.amount * rate;
+      if (direction === 'from') {
+        const rate =
+          this.rates[this.toCurrency] / this.rates[this.fromCurrency];
+        this.amount2 = this.amount1 * rate;
+      } else if (direction === 'to') {
+        const rate =
+          this.rates[this.fromCurrency] / this.rates[this.toCurrency];
+        this.amount1 = this.amount2 * rate;
+      }
     }
   }
 }

@@ -483,35 +483,49 @@
 <header class="main">
   <div class="container">
     <h1>{{ title }}</h1>
+
+    <!-- Поле введення та вибір валюти для першої валюти -->
     <div>
-      <label for="amount">Amount:</label>
+      <label for="amount1">Amount:</label>
       <input
         type="number"
-        [(ngModel)]="amount"
-        (input)="convert()"
-        id="amount"
+        [(ngModel)]="amount1"
+        (input)="convert('from')"
+        id="amount1"
       />
     </div>
     <div>
       <label for="from">From:</label>
-      <select [(ngModel)]="fromCurrency" (change)="convert()" id="from">
+      <select [(ngModel)]="fromCurrency" (change)="convert('from')" id="from">
         <option *ngFor="let currency of currencies" [value]="currency">
           {{ currency }}
         </option>
       </select>
+    </div>
+
+    <!-- Поле введення та вибір валюти для другої валюти -->
+    <div>
+      <label for="amount2">Amount:</label>
+      <input
+        type="number"
+        [(ngModel)]="amount2"
+        (input)="convert('to')"
+        id="amount2"
+      />
     </div>
     <div>
       <label for="to">To:</label>
-      <select [(ngModel)]="toCurrency" (change)="convert()" id="to">
+      <select [(ngModel)]="toCurrency" (change)="convert('to')" id="to">
         <option *ngFor="let currency of currencies" [value]="currency">
           {{ currency }}
         </option>
       </select>
     </div>
+
     <div>
       <p>
-        {{ amount }} {{ fromCurrency }} =
-        {{ convertedAmount | number : "1.2-2" }} {{ toCurrency }}
+        {{ amount1 }} {{ fromCurrency }} = {{ amount2 | number : "1.2-2" }}
+        {{ toCurrency }}
       </p>
     </div>
   </div>
