@@ -37,6 +37,7 @@
                   "maximumError": "4kb"
                 }
               ],
+              "baseHref": "/angular_currency_converter/",
               "outputHashing": "all"
             },
             "development": {
