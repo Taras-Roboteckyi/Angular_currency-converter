@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class CurrencyService {
-  private apiUrl = 'https://api.exchangerate-api.com/v4/latest/USD'; // Замініть на ваш API
+  private apiUrl = 'https://api.exchangerate-api.com/v4/latest/USD'; 
 
   constructor(private http: HttpClient) {}
 
