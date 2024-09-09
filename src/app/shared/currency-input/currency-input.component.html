@@ -1,0 +1,19 @@
+<div>
+  <label>Amount:</label>
+  <input
+    type="number"
+    [value]="amount"
+    (input)="onAmountChange($event.target.value)"
+  />
+</div>
+<div>
+  <label>Currency:</label>
+  <select
+    [value]="selectedCurrency"
+    (change)="onCurrencyChange($event.target.value)"
+  >
+    <option *ngFor="let currency of currencies" [value]="currency">
+      {{ currency }}
+    </option>
+  </select>
+</div>

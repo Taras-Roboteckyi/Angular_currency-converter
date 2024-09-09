@@ -1,0 +1,27 @@
+<header class="main">
+  <div class="container">
+    <h1>{{ title }}</h1>
+    <app-currency-input
+      [amount]="amount1"
+      [selectedCurrency]="fromCurrency"
+      [currencies]="currencies"
+      (amountChange)="onAmountChange($event, 'from')"
+      (currencyChange)="onCurrencyChange($event, 'from')"
+    ></app-currency-input>
+
+    <app-currency-input
+      [amount]="amount2"
+      [selectedCurrency]="toCurrency"
+      [currencies]="currencies"
+      (amountChange)="onAmountChange($event, 'to')"
+      (currencyChange)="onCurrencyChange($event, 'to')"
+    ></app-currency-input>
+
+    <app-conversion-result
+      [amount1]="amount1"
+      [amount2]="amount2"
+      [fromCurrency]="fromCurrency"
+      [toCurrency]="toCurrency"
+    ></app-conversion-result>
+  </div>
+</header>
