@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+/* import { Component, OnInit } from '@angular/core';
 import { CurrencyService } from './currency.service';
 
 @Component({
@@ -36,6 +36,52 @@ export class AppComponent implements OnInit {
           this.rates[this.fromCurrency] / this.rates[this.toCurrency];
         this.amount1 = this.amount2 * rate;
       }
+    }
+  }
+}
+ */
+
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
+})
+export class AppComponent {
+  title = 'Currency Converter';
+  amount1 = 0;
+  amount2 = 0;
+  fromCurrency = 'USD';
+  toCurrency = 'UAH';
+  currencies = ['USD', 'EUR', 'UAH'];
+
+  convert(direction: 'from' | 'to') {
+    // Логіка конвертації валют
+    if (direction === 'from') {
+      // Рахуємо amount2
+    } else {
+      // Рахуємо amount1
+    }
+  }
+
+  onAmountChange(value: number, direction: 'from' | 'to') {
+    if (direction === 'from') {
+      this.amount1 = value;
+      this.convert('from');
+    } else {
+      this.amount2 = value;
+      this.convert('to');
+    }
+  }
+
+  onCurrencyChange(value: string, direction: 'from' | 'to') {
+    if (direction === 'from') {
+      this.fromCurrency = value;
+      this.convert('from');
+    } else {
+      this.toCurrency = value;
+      this.convert('to');
     }
   }
 }
