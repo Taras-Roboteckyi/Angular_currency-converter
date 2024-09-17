@@ -41,47 +41,80 @@ export class AppComponent implements OnInit {
 }
  */
 
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CurrencyService } from './shared/currency.service'; // Імпортуємо сервіс
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Currency Converter';
-  amount1 = 0;
+
+  amount1 = 1;
   amount2 = 0;
   fromCurrency = 'USD';
   toCurrency = 'UAH';
   currencies = ['USD', 'EUR', 'UAH'];
+  exchangeRates: { [key: string]: number } = {};
 
-  convert(direction: 'from' | 'to') {
-    // Логіка конвертації валют
-    if (direction === 'from') {
-      // Рахуємо amount2
-    } else {
-      // Рахуємо amount1
-    }
+  constructor(private currencyService: CurrencyService) {}
+
+  ngOnInit(): void {
+    this.loadExchangeRates(this.fromCurrency);
   }
 
-  onAmountChange(value: number, direction: 'from' | 'to') {
-    if (direction === 'from') {
-      this.amount1 = value;
+  // Метод для завантаження курсів валют
+  loadExchangeRates(baseCurrency: string): void {
+    this.currencyService.getExchangeRates(baseCurrency).subscribe(
+      (data) => {
+        this.exchangeRates = data.rates;
+        this.convert('from');
+      },
+      (error) => {
+        console.error('Error loading exchange rates:', error);
+      }
+    );
+  }
+
+  onAmountChange(newAmount: number, type: 'from' | 'to'): void {
+    if (type === 'from') {
+      this.amount1 = newAmount;
       this.convert('from');
     } else {
-      this.amount2 = value;
+      this.amount2 = newAmount;
       this.convert('to');
     }
   }
 
-  onCurrencyChange(value: string, direction: 'from' | 'to') {
-    if (direction === 'from') {
-      this.fromCurrency = value;
-      this.convert('from');
+  onCurrencyChange(newCurrency: string, type: 'from' | 'to'): void {
+    if (type === 'from') {
+      this.fromCurrency = newCurrency;
+      this.loadExchangeRates(newCurrency); // Завантажуємо нові курси при зміні валюти
     } else {
-      this.toCurrency = value;
-      this.convert('to');
+      this.toCurrency = newCurrency;
+      this.convert('from');
     }
+  }
+
+  // Метод для конвертації валют
+  convert(type: 'from' | 'to'): void {
+    const rate = this.getExchangeRate(this.fromCurrency, this.toCurrency);
+
+    if (type === 'from') {
+      this.amount2 = this.amount1 * rate;
+    } else {
+      this.amount1 = this.amount2 / rate;
+    }
+  }
+
+  // Метод для отримання курсу валют
+  getExchangeRate(from: string, to: string): number {
+    if (from === to) {
+      return 1;
+    }
+    const rate = this.exchangeRates[to];
+    return rate || 1;
   }
 }
